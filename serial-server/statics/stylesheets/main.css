@@ -1,0 +1,54 @@
+body {
+    background: #151515;
+}
+
+h1 {
+	text-decoration: underline;
+}
+
+h4 {
+	margin-left: .5em;
+	margin-bottom: .5em;
+}
+
+.main-content {
+    margin: 0 auto 0 auto;
+    padding: 1em;
+    width: 900px;
+    border: 3px solid #E8E583;
+    border-radius: 30px;
+    background: #FFFFFF;
+	box-shadow: 10px 10px 20px #FFFFFF;
+    color: #424234;
+}
+
+.main-content p {
+	margin-left: 1em;
+}
+
+.monitor {
+	margin: 0px auto 0px auto;
+	padding: 1em;
+	height: 20em;
+    border: 1px solid black;
+    border-radius: 30px;
+}
+
+.interactions {
+	margin-left: 1.5em;
+}
+
+.interactions .standard-button {
+	border-radius: 10px;
+	margin-left: 1em;
+}
+
+
+.data-received {
+	color: red;
+}
+
+#clear-monitor {
+	margin-top: 1em;
+    margin-left: 1em;
+}
