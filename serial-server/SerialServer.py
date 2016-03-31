@@ -10,9 +10,11 @@ import tornado.options
 import controllers
 import config
 
+
 tornado.options.define("server-port", default = 8000, help = "Starts the server on the given port", type = int)
 tornado.options.define("statics-root", default = configs.Routes.STATICS_ROOT)
 tornado.options.define("templates-root", default = configs.Routes.TEMPLATES_ROOT)
+
 
 class SerialMonitorApplication(tornado.web.Application):
 	def __init__(self):
@@ -31,10 +33,12 @@ class SerialMonitorApplication(tornado.web.Application):
 		
 		super(SerialMonitorApplication, self).__init__(handlers, **settings)
 
+
 class SerialChatController(tornado.web.RequestHandler):
 	def get(self):
 		self.render('serial-chat.html')
- 
+
+
 class SerialDataSocket(tornado.websocket.WebSocketHandler):
 	clients = []
 
@@ -50,6 +54,7 @@ class SerialDataSocket(tornado.websocket.WebSocketHandler):
 	def on_close(self):
 		print 'Closed - %s' % self
 		self.clients.remove(self)
+
 
 def main():
 	tornado.options.parse_command_line()
