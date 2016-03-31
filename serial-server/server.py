@@ -80,12 +80,12 @@ class SerialChatController(tornado.web.RequestHandler):
 
 
 class SerialMonitorSocket(tornado.websocket.WebSocketHandler):
-    clients = []
+    connections = []
 
     def open(self):
         print 'New connection - %s' % self
-        self.clients.append(self)
-        self.write_message('Connected to SerialData Socket')
+        self.connections.append(self)
+        self.write_message('Connected to Serial Monitor Socket')
 
     def on_message(self, msg):
         print 'Received: %s' % msg
@@ -93,7 +93,7 @@ class SerialMonitorSocket(tornado.websocket.WebSocketHandler):
 
     def on_close(self):
         print 'Closed - %s' % self
-        self.clients.remove(self)
+        self.connections.remove(self)
 
 
 def main():
