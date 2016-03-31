@@ -38,8 +38,18 @@ tornado.options.define(
 
 
 class SerialMonitorApplication(tornado.web.Application):
+    handlers = []
+    settings = []
+
     def __init__(self):
-        handlers = [
+        self.initHandlers()
+        self.initSettings()
+
+        super(SerialMonitorApplication, self).__init__(self.handlers,
+                                                       **self.settings)
+
+    def initHandlers():
+        self.handlers = [
             (config.routes.ROOT, controllers.home_controller.HomeController),
             (r"/serial", SerialChatController),
             (r"/serial/data-monitor", SerialMonitorSocket),
@@ -52,7 +62,8 @@ class SerialMonitorApplication(tornado.web.Application):
             )
         ]
 
-        settings = dict(
+    def initSettings():
+        self.settings = dict(
             app_title=u"Serial Monitor Application",
             template_path=os.path.join(
                 os.path.dirname(__file__),
@@ -63,8 +74,6 @@ class SerialMonitorApplication(tornado.web.Application):
                 tornado.options.statics_root[:-1]
                 ),
         )
-
-        super(SerialMonitorApplication, self).__init__(handlers, **settings)
 
 
 class SerialChatController(tornado.web.RequestHandler):
