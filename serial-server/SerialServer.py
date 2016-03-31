@@ -8,7 +8,7 @@ import tornado.gen
 import tornado.options
 
 import controllers
-import config
+import config.routes
 
 
 tornado.options.define(
@@ -19,18 +19,18 @@ tornado.options.define(
 )
 tornado.options.define(
     "statics-root",
-    default=configs.Routes.STATICS_ROOT
+    default=routes.STATICS_ROOT
 )
 tornado.options.define(
     "templates-root",
-    default=configs.Routes.TEMPLATES_ROOT
+    default=routes.TEMPLATES_ROOT
 )
 
 
 class SerialMonitorApplication(tornado.web.Application):
     def __init__(self):
         handlers = [
-            (config.Routes.ROOT, controllers.HomeController),
+            (routes.ROOT, controllers.home_controller.HomeController),
             (r"/serial", SerialChatController),
             (r"/serial/data-monitor", SerialDataSocket),
             (
