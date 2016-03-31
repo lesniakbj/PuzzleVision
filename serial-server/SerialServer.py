@@ -15,9 +15,10 @@ define("templates-root", default = "templates/")
 class SerialMonitorApplication(tornado.web.Application):
 	def __init__(self):
 		handlers=[
-			(r"/", IndexController),
-			(r"/statics/(.*)", tornado.web.StaticFileHandler, {'path': options.statics-root}),
-			(r"/serial/data-monitor", SerialDataSocket)
+			(r"/", HomeController),
+			(r"/serial", SerialChatController),
+			(r"/serial/data-monitor", SerialDataSocket),
+			(r"/statics/(.*)", tornado.web.StaticFileHandler, {'path': options.statics-root})
 		]
 		
 		settings = dict(
@@ -28,9 +29,13 @@ class SerialMonitorApplication(tornado.web.Application):
 		
 		super(SerialMonitorApplication, self).__init__(handlers, **settings)
 		
-class IndexController(tornado.web.RequestHandler):
+class HomeController(tornado.web.RequestHandler):
 	def get(self):
 		self.render('index.html')
+
+class SerialChatController(tornado.web.RequestHandler):
+	def get(self):
+		self.render('serial-chat.html')
  
 class SerialDataSocket(tornado.websocket.WebSocketHandler):
 	clients = []
