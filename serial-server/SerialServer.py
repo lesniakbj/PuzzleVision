@@ -17,7 +17,7 @@ define("templates-root", default = "templates/")
 class SerialMonitorApplication(tornado.web.Application):
 	def __init__(self):
 		handlers = [
-			(config.Routes.ROOT, controllers.HomeController),
+			(Routes.ROOT, HomeController),
 			(r"/serial", SerialChatController),
 			(r"/serial/data-monitor", SerialDataSocket),
 			(r"/statics/(.*)", tornado.web.StaticFileHandler, {'path': options.statics-root})
