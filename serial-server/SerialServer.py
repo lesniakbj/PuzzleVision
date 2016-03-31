@@ -8,29 +8,39 @@ import tornado.gen
 import tornado.options
 
 import controllers
-import config.routes
+import config
 
 
 tornado.options.define(
     "server-port",
-    default=8000,
+    default=config.server.PORT,
     help="Starts the server on the given port",
     type=int
 )
 tornado.options.define(
+    "serial-port",
+    default=config.serial.PORT,
+    help="Start a UART connection on the given port",
+    type=int
+)
+tornado.options.define(
     "statics-root",
-    default=routes.STATICS_ROOT
+    default=config.routes.STATICS_ROOT,
+    help="Defines where the server will look for static files",
+    type=str
 )
 tornado.options.define(
     "templates-root",
-    default=routes.TEMPLATES_ROOT
+    default=config.routes.TEMPLATES_ROOT,
+    help="Defines where the server will look for view templates",
+    type=str
 )
 
 
 class SerialMonitorApplication(tornado.web.Application):
     def __init__(self):
         handlers = [
-            (routes.ROOT, controllers.home_controller.HomeController),
+            (config.routes.ROOT, controllers.home_controller.HomeController),
             (r"/serial", SerialChatController),
             (r"/serial/data-monitor", SerialDataSocket),
             (
