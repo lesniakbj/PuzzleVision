@@ -73,7 +73,7 @@ class SerialMonitorApplication(tornado.web.Application):
             statics_path=os.path.join(
                 os.path.dirname(__file__),
                 tornado.options.statics_root[:-1]
-                ),
+            )
         )
 
 
