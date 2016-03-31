@@ -11,5 +11,5 @@ the Controller for debuggin purposes.
 The following still needs to be figured out:
 
 1. Currently there is a Serial->USB adapter that is connecting the AStar32u4 to the RPi. This needs to be changed to
-use the RPi's built GPIO Serial pins.
+use the RPi's built-in GPIO Serial pins.
 2. The Serial Communication task should happen on a background thread, and data should be passed to the web server.
