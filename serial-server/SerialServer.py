@@ -51,7 +51,6 @@ class SerialDataSocket(tornado.websocket.WebSocketHandler):
 		print 'Closed - %s' % self
 		self.clients.remove(self)
 
-		
 def main():
 	tornado.options.parse_command_line()
 	httpServer = tornado.httpserver.HTTPServer(SerialMonitorApplication())
