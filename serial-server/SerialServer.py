@@ -12,25 +12,25 @@ import config
 
 
 tornado.options.define(
-    "server-port",
+    "server_port",
     default=config.server.PORT,
     help="Starts the server on the given port",
     type=int
 )
 tornado.options.define(
-    "serial-port",
+    "serial_port",
     default=config.serial.PORT,
     help="Start a UART connection on the given port",
     type=int
 )
 tornado.options.define(
-    "statics-root",
+    "statics_root",
     default=config.routes.STATICS_ROOT,
     help="Defines where the server will look for static files",
     type=str
 )
 tornado.options.define(
-    "templates-root",
+    "templates_root",
     default=config.routes.TEMPLATES_ROOT,
     help="Defines where the server will look for view templates",
     type=str
@@ -47,7 +47,7 @@ class SerialMonitorApplication(tornado.web.Application):
                 r"/statics/(.*)",
                 tornado.web.StaticFileHandler,
                 {
-                    'path': tornado.options.statics-root
+                    'path': tornado.options.statics_root
                 }
             )
         ]
@@ -56,11 +56,11 @@ class SerialMonitorApplication(tornado.web.Application):
             app_title=u"Serial Monitor Application",
             template_path=os.path.join(
                 os.path.dirname(__file__),
-                tornado.options.templates-root[:-1]
+                tornado.options.templates_root[:-1]
             ),
             statics_path=os.path.join(
                 os.path.dirname(__file__),
-                tornado.options.statics-root[:-1]
+                tornado.options.statics_root[:-1]
                 ),
         )
 
@@ -92,7 +92,7 @@ class SerialDataSocket(tornado.websocket.WebSocketHandler):
 def main():
     tornado.options.parse_command_line()
     httpServer = tornado.httpserver.HTTPServer(SerialMonitorApplication())
-    httpServer.listen(tornado.options.server-port)
+    httpServer.listen(tornado.options.server_port)
 
     # Print so we know the server started
     print "Listening on port:", tornado.options.port
