@@ -25,16 +25,16 @@ import config
 
 
 tornado.options.define("server_port", default=config.server.PORT,
-                       help="Start the server on the given port",
+                       help=config.strings.HELP_SERVER_PORT,
                        type=int)
 tornado.options.define("serial_port", default=config.serial.PORT,
-                       help="Start a UART connection on the given port",
+                       help=config.strings.HELP_SERIAL_PORT,
                        type=int)
 tornado.options.define("statics_root", default=config.routes.STATICS_ROOT,
-                       help="Where the server will look for static files",
+                       help=config.strings.HELP_STATICS,
                        type=str)
 tornado.options.define("templates_root", default=config.routes.TEMPLATES_ROOT,
-                       help="Where the server will look for view templates",
+                       help=config.strings.HELP_TEMPLATES,
                        type=str)
 
 
