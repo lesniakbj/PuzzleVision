@@ -24,30 +24,18 @@ import controllers
 import config
 
 
-tornado.options.define(
-    "server_port",
-    default=config.server.PORT,
-    help="Starts the server on the given port",
-    type=int
-)
-tornado.options.define(
-    "serial_port",
-    default=config.serial.PORT,
-    help="Start a UART connection on the given port",
-    type=int
-)
-tornado.options.define(
-    "statics_root",
-    default=config.routes.STATICS_ROOT,
-    help="Defines where the server will look for static files",
-    type=str
-)
-tornado.options.define(
-    "templates_root",
-    default=config.routes.TEMPLATES_ROOT,
-    help="Defines where the server will look for view templates",
-    type=str
-)
+tornado.options.define("server_port", default=config.server.PORT,
+                       help="Start the server on the given port",
+                       type=int)
+tornado.options.define("serial_port", default=config.serial.PORT,
+                       help="Start a UART connection on the given port",
+                       type=int)
+tornado.options.define("statics_root", default=config.routes.STATICS_ROOT,
+                       help="Where the server will look for static files",
+                       type=str)
+tornado.options.define("templates_root", default=config.routes.TEMPLATES_ROOT,
+                       help="Where the server will look for view templates",
+                       type=str)
 
 
 class SerialMonitorApplication(tornado.web.Application):
