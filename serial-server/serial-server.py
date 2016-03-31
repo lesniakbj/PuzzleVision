@@ -22,8 +22,8 @@ class SerialMonitorApplication(tornado.web.Application):
 		
 		settings = dict(
 			app_title = u"Serial Monitor Application",
-			template_path = os.path.join(os.path.dirname(__file__), options.templates-root[:1]),
-			statics_path = os.path.join(os.path.dirname(__file__), options.statics-root[:1]),
+			template_path = os.path.join(os.path.dirname(__file__), options.templates-root[:-1]),
+			statics_path = os.path.join(os.path.dirname(__file__), options.statics-root[:-1]),
 		)
 		
 		super(SerialMonitorApplication, self).__init__(handlers, **settings)
