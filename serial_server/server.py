@@ -18,21 +18,25 @@ import tornado.ioloop
 import tornado.web
 import tornado.websocket
 import tornado.gen
-import tornado.options
 
-import controllers
-import config
+from tornado.options import define, options
+from controllers import home_controller, serial_controller
+from serial import serial_socket
+from config import strings, server, serial, routes
 
 
-tornado.options.define("server_port", default=config.server.PORT,
-                       help=config.strings.HELP_SERVER_PORT, type=int)
-tornado.options.define("serial_port", default=config.serial.PORT,
-                       help=config.strings.HELP_SERIAL_PORT, type=int)
-tornado.options.define("statics_root", default=config.routes.STATICS_ROOT,
-                       help=config.strings.HELP_STATICS, type=str)
-tornado.options.define("templates_root", default=config.routes.TEMPLATES_ROOT,
-                       help=config.strings.HELP_TEMPLATES, type=str)
+define("server_port", default=server.PORT,
+                      help=strings.HELP_SERVER_PORT, type=int)
+define("serial_port", default=serial.PORT,
+                      help=strings.HELP_SERIAL_PORT, type=int)
+define("statics_root", default=routes.STATICS_ROOT,
+                       help=strings.HELP_STATICS, type=str)
+define("templates_root", default=routes.TEMPLATES_ROOT,
+                         help=strings.HELP_TEMPLATES, type=str)
 
+statics_root = routes.STATICS_ROOT
+templates_root = routes.TEMPLATES_ROOT
+server_port = server.PORT
 
 class SerialMonitorApplication(tornado.web.Application):
     controllers = []
@@ -45,64 +49,42 @@ class SerialMonitorApplication(tornado.web.Application):
         super(SerialMonitorApplication, self).__init__(self.controllers,
                                                        **self.settings)
 
-    def initControllers():
+    def initControllers(self):
         self.controllers = [
-            (config.routes.ROOT, controllers.home_controller.HomeController),
-            (r"/serial", SerialChatController),
-            (r"/serial/data-monitor", SerialMonitorSocket),
+            (routes.ROOT, home_controller.HomeController),
+            (routes.SERIAL_MONITOR, serial_controller.SerialComController),
+            (routes.SERIAL_SOCKET, serial_socket.SerialMonitorSocket),
             (
-                r"/statics/(.*)",
+                routes.STATICS_PATTERN,
                 tornado.web.StaticFileHandler,
                 {
-                    'path': tornado.options.statics_root
+                    'path': statics_root
                 }
             )
         ]
 
-    def initSettings():
+    def initSettings(self):
         self.settings = dict(
             app_title=u"Serial Monitor Application",
-            default_handler_class=controllers.error_controller.ErrorController,
+            #default_handler_class=error_controller.ErrorController,
             template_path=os.path.join(
                 os.path.dirname(__file__),
-                tornado.options.templates_root[:-1]
+                templates_root[:-1]
             ),
             statics_path=os.path.join(
                 os.path.dirname(__file__),
-                tornado.options.statics_root[:-1]
+                statics_root[:-1]
             )
         )
-
-
-class SerialChatController(tornado.web.RequestHandler):
-    def get(self):
-        self.render('serial-chat.html')
-
-
-class SerialMonitorSocket(tornado.websocket.WebSocketHandler):
-    connections = []
-
-    def open(self):
-        print('New connection - %s', self)
-        self.connections.append(self)
-        self.write_message('Connected to Serial Monitor Socket')
-
-    def on_message(self, msg):
-        print('Received: %s', msg)
-        self.write_message('Received: %s' % msg)
-
-    def on_close(self):
-        print('Closed - %s', self)
-        self.connections.remove(self)
 
 
 def main():
     tornado.options.parse_command_line()
     httpServer = tornado.httpserver.HTTPServer(SerialMonitorApplication())
-    httpServer.listen(tornado.options.server_port)
+    httpServer.listen(server_port)
 
     # Print so we know the server started
-    print('Listening on port:', tornado.options.port)
+    print('Listening on port:', server_port)
 
     # Start the application on the main IO loop
     tornado.ioloop.IOLoop.current().start()

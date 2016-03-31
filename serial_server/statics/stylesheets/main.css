@@ -28,10 +28,13 @@ h4 {
 
 .monitor {
 	margin: 0px auto 0px auto;
-	padding: 1em;
+	padding-bottom: 2.0em;
+    padding-left: .5em;
 	height: 20em;
     border: 1px solid black;
     border-radius: 30px;
+	overflow:  hidden;
+	
 }
 
 .interactions {
@@ -46,6 +49,11 @@ h4 {
 
 .data-received {
 	color: red;
+}
+
+ul.no-bullet li {
+	list-style-type: none;
+	text-decoration: none;
 }
 
 #clear-monitor {

@@ -4,7 +4,7 @@ PV.Socket = {
 	base: null,
 	monitorAddress: null,
 	socket: null,
-	$outDiv: $('#data-monitor'),
+	$outDiv: $('#monitor-data-items'),
 	$inBox: $('#serial-data-input'),
 	$sendButton: $('#send-data'),
 	$clearButton: $('#clear-monitor'),
@@ -36,7 +36,7 @@ PV.Socket = {
 		
 		PV.Socket.socket.onmessage = function(msg) {
 			console.log('Received: ' + msg.data);
-			PV.Socket.$outDiv.append('<div class="data-received">' + msg.data + '</div>');
+			PV.Socket.$outDiv.append('<li class="data-received">' + msg.data + '</li>');
 		};
 		
 		PV.Socket.socket.onclose = function() {
@@ -48,10 +48,37 @@ PV.Socket = {
 		console.log('Sending: ' + msg);
 		PV.Socket.socket.send(msg);
 		
-		PV.Socket.$outDiv.append('<div class="data-sent">' + msg + '</div>');
+		PV.Socket.$outDiv.append('<li class="data-sent">' + msg + '</li>');
+	}
+};
+
+PV.AutoScroll = {
+	$inBox: $('#serial-data-input'),
+	$sendButton: $('#send-data'),
+	$divToScroll: $('#data-monitor'),
+	
+	init : function() {
+		PV.AutoScroll.attachEvents();
+	},
+	
+	attachEvents : function() {
+		this.$sendButton.on('click', function(evt) {
+			PV.AutoScroll.$divToScroll[0].scrollTop = PV.AutoScroll.$divToScroll[0].scrollHeight;
+			PV.AutoScroll.$divToScroll.val('');
+		}).focus();
+		
+		this.$inBox.on('keyup', function(evt) {
+			if (evt.keyCode == 13) {
+				var data = PV.AutoScroll.$inBox.val();
+				PV.Socket.sendMessage(data);
+				PV.AutoScroll.$divToScroll[0].scrollTop = PV.AutoScroll.$divToScroll[0].scrollHeight;
+				PV.AutoScroll.$divToScroll.val('');
+			}
+		}).focus();
 	}
 };
 
 $(document).on('ready', function() {
 	PV.Socket.init();
+	PV.AutoScroll.init();
 });

@@ -1,3 +1,2 @@
-class SerialConfig():
-    BAUD = 57600
-    PORT = r'/dev/ttyUSB0'
+BAUD = 57600
+PORT = r'/dev/ttyUSB0'

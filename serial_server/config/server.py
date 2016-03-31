@@ -1,2 +1,1 @@
-class ServerConfig():
-    PORT = 8080
+PORT = 8080
