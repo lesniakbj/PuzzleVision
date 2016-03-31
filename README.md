@@ -1,5 +1,4 @@
-# PuzzleVisionPython
---------------------
+# Puzzle Vision
 
 The Puzzle Vision Python project integrates a small web server with a serial-monitor to provide access to data 
 coming from a Robot Controller attached via a Serial interface. Specifically, this code is meant to run on a
