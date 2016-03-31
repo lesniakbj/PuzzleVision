@@ -1,6 +1,6 @@
 # Puzzle Vision
 
-The Puzzle Vision project is a small Python module that integrates a web server with a serial-monitor to provide access 
+The Puzzle Vision project is a small Python module that integrates a web server with a serial monitor to provide access 
 to data coming from a Robot Controller attached via a Serial interface. Specifically, this code is meant to run on a
 Raspberry Pi that is attached to a AStar32u4 Robot Controller HAT. 
 
