@@ -35,18 +35,18 @@ tornado.options.define("templates_root", default=config.routes.TEMPLATES_ROOT,
 
 
 class SerialMonitorApplication(tornado.web.Application):
-    handlers = []
+    controllers = []
     settings = []
 
     def __init__(self):
-        self.initHandlers()
+        self.initControllers()
         self.initSettings()
 
-        super(SerialMonitorApplication, self).__init__(self.handlers,
+        super(SerialMonitorApplication, self).__init__(self.controllers,
                                                        **self.settings)
 
-    def initHandlers():
-        self.handlers = [
+    def initControllers():
+        self.controllers = [
             (config.routes.ROOT, controllers.home_controller.HomeController),
             (r"/serial", SerialChatController),
             (r"/serial/data-monitor", SerialMonitorSocket),
