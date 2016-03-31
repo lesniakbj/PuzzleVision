@@ -7,7 +7,8 @@ import tornado.websocket
 import tornado.gen
 from tornado.options import define, options
 
-import controllers
+from controllers import HomeController
+from config import Routes
 
 define("server-port", default = 8000, help = "Starts the server on the given port", type = int)
 define("statics-root", default = "statics/")
@@ -16,7 +17,7 @@ define("templates-root", default = "templates/")
 class SerialMonitorApplication(tornado.web.Application):
 	def __init__(self):
 		handlers = [
-			(r"/", controllers.HomeController),
+			(config.Routes.ROOT, controllers.HomeController),
 			(r"/serial", SerialChatController),
 			(r"/serial/data-monitor", SerialDataSocket),
 			(r"/statics/(.*)", tornado.web.StaticFileHandler, {'path': options.statics-root})
