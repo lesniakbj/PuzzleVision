@@ -62,6 +62,7 @@ class SerialMonitorApplication(tornado.web.Application):
     def initSettings():
         self.settings = dict(
             app_title=u"Serial Monitor Application",
+            default_handler_class=controllers.error_controller.ErrorController,
             template_path=os.path.join(
                 os.path.dirname(__file__),
                 tornado.options.templates_root[:-1]
