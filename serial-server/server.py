@@ -1,3 +1,16 @@
+"""
+Puzzle Vision Serial Server:
+The puzzle vision serial server is meant to collect data from
+the serial ports and allow communication to the attached device
+from a web site. This will allow us to view the data that is being
+transmitted from the AStar32u4, which includes system status,
+collected video, and motor data.
+
+The server will allow commands to be sent to the AStar32u4 so that
+the system can be configured in the desired manner. Finally, the
+server will also show the status of I/O pins on the RPi, and will
+act as a general I/O monitor.
+"""
 import os
 
 import tornado.httpserver
