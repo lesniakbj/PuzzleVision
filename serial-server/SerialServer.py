@@ -12,17 +12,17 @@ import config
 
 
 tornado.options.define(
-    "server-port", 
-    default=8000, 
-    help="Starts the server on the given port", 
+    "server-port",
+    default=8000,
+    help="Starts the server on the given port",
     type=int
 )
 tornado.options.define(
-    "statics-root", 
+    "statics-root",
     default=configs.Routes.STATICS_ROOT
 )
 tornado.options.define(
-    "templates-root", 
+    "templates-root",
     default=configs.Routes.TEMPLATES_ROOT
 )
 
