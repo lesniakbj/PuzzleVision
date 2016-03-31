@@ -33,13 +33,15 @@ class SerialMonitorApplication(tornado.web.Application):
             (config.Routes.ROOT, controllers.HomeController),
             (r"/serial", SerialChatController),
             (r"/serial/data-monitor", SerialDataSocket),
-            (r"/statics/(.*)", tornado.web.StaticFileHandler, {'path': tornado.options.statics-root})
+            (r"/statics/(.*)", tornado.web.StaticFileHandler, 
+                {'path': tornado.options.statics-root}
+            )
         ]
 
         settings = dict(
-            app_title = u"Serial Monitor Application",
-            template_path = os.path.join(os.path.dirname(__file__), tornado.options.templates-root[:-1]),
-            statics_path = os.path.join(os.path.dirname(__file__), tornado.options.statics-root[:-1]),
+            app_title=u"Serial Monitor Application",
+            template_path=os.path.join(os.path.dirname(__file__), tornado.options.templates-root[:-1]),
+            statics_path=os.path.join(os.path.dirname(__file__), tornado.options.statics-root[:-1]),
         )
 
         super(SerialMonitorApplication, self).__init__(handlers, **settings)
