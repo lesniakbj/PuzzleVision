@@ -11,9 +11,20 @@ import controllers
 import config
 
 
-tornado.options.define("server-port", default=8000, help="Starts the server on the given port", type=int)
-tornado.options.define("statics-root", default=configs.Routes.STATICS_ROOT)
-tornado.options.define("templates-root", default=configs.Routes.TEMPLATES_ROOT)
+tornado.options.define(
+    "server-port", 
+    default=8000, 
+    help="Starts the server on the given port", 
+    type=int
+)
+tornado.options.define(
+    "statics-root", 
+    default=configs.Routes.STATICS_ROOT
+)
+tornado.options.define(
+    "templates-root", 
+    default=configs.Routes.TEMPLATES_ROOT
+)
 
 
 class SerialMonitorApplication(tornado.web.Application):
@@ -24,7 +35,7 @@ class SerialMonitorApplication(tornado.web.Application):
             (r"/serial/data-monitor", SerialDataSocket),
             (r"/statics/(.*)", tornado.web.StaticFileHandler, {'path': tornado.options.statics-root})
         ]
-        
+
         settings = dict(
             app_title = u"Serial Monitor Application",
             template_path = os.path.join(os.path.dirname(__file__), tornado.options.templates-root[:-1]),
@@ -70,3 +81,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
