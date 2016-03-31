@@ -14,7 +14,7 @@ define("templates-root", default = "templates/")
 
 class SerialMonitorApplication(tornado.web.Application):
 	def __init__(self):
-		handlers=[
+		handlers = [
 			(r"/", HomeController),
 			(r"/serial", SerialChatController),
 			(r"/serial/data-monitor", SerialDataSocket),
