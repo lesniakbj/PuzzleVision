@@ -11,7 +11,8 @@ the Controller for debuggin purposes.
 The following still needs to be figured out:
 
 1. Serve Templates instead of Raw HTML, so we can customize the response based on data requested.
-2. Should communication between devices happen over I2C or Serial? It is currently Serial.
-3. Currently there is a Serial --> USB adapter that is connecting the AStar32u4 to the RPi. This needs to be changed to
+2. If HomeController works as seperate class, move all controllers out of SerialServer.py
+3. Should communication between devices happen over I2C or Serial? It is currently Serial.
+4. Currently there is a Serial --> USB adapter that is connecting the AStar32u4 to the RPi. This needs to be changed to
 use the RPi's built-in GPIO Serial pins.
-4. The Serial Communication task should happen on a background thread, and data should be passed to the web server.
+5. The Serial Communication task should happen on a background thread, and data should be passed to the web server.
