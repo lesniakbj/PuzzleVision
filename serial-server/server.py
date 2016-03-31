@@ -83,16 +83,16 @@ class SerialMonitorSocket(tornado.websocket.WebSocketHandler):
     connections = []
 
     def open(self):
-        print 'New connection - %s' % self
+        print('New connection - %s', self)
         self.connections.append(self)
         self.write_message('Connected to Serial Monitor Socket')
 
     def on_message(self, msg):
-        print 'Received: %s' % msg
+        print('Received: %s', msg)
         self.write_message('Received: %s' % msg)
 
     def on_close(self):
-        print 'Closed - %s' % self
+        print('Closed - %s', self)
         self.connections.remove(self)
 
 
@@ -102,7 +102,7 @@ def main():
     httpServer.listen(tornado.options.server_port)
 
     # Print so we know the server started
-    print "Listening on port:", tornado.options.port
+    print('Listening on port:', tornado.options.port)
 
     # Start the application on the main IO loop
     tornado.ioloop.IOLoop.current().start()
