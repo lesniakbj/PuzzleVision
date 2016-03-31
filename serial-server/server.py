@@ -42,7 +42,7 @@ class SerialMonitorApplication(tornado.web.Application):
         handlers = [
             (config.routes.ROOT, controllers.home_controller.HomeController),
             (r"/serial", SerialChatController),
-            (r"/serial/data-monitor", SerialDataSocket),
+            (r"/serial/data-monitor", SerialMonitorSocket),
             (
                 r"/statics/(.*)",
                 tornado.web.StaticFileHandler,
@@ -72,7 +72,7 @@ class SerialChatController(tornado.web.RequestHandler):
         self.render('serial-chat.html')
 
 
-class SerialDataSocket(tornado.websocket.WebSocketHandler):
+class SerialMonitorSocket(tornado.websocket.WebSocketHandler):
     clients = []
 
     def open(self):
