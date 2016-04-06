@@ -38,6 +38,7 @@ statics_root = routes.STATICS_ROOT
 templates_root = routes.TEMPLATES_ROOT
 server_port = server.PORT
 
+
 class SerialMonitorApplication(tornado.web.Application):
     controllers = []
     settings = []
