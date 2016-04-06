@@ -92,7 +92,7 @@ def main():
     httpServer.listen(server_port)
 
     # Print so we know the server started
-    print('Listening on port:', server_port)
+    print('Listening on port: {:d}' % server_port)
 
     # Start the application on the main IO loop
 	# Add a callback that will be called periodically to check

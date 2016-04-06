@@ -26,7 +26,7 @@ class SerialCom(multiprocessing.Process):
 
             if len(data) > 0:
                 self.data_list.append(data)
-                print('Data rec: ', data)
+                print('Data received from device: {}' % data)
         
                 return data
 

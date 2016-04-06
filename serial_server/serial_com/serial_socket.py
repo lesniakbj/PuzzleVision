@@ -9,15 +9,15 @@ class SerialMonitorSocket(tornado.websocket.WebSocketHandler):
         self.serialPort = serial
 
     def open(self):
-        print('New connection - %s' % self)
+        print('New connection - {}' % self)
         self.connections.append(self)
         self.write_message('Connected to Serial Monitor Socket')
 
     def on_message(self, msg):
-        print('Received: ', msg)
-        self.write_message('Received: %s' % msg)
+        print('Received: {}' % msg)
+        self.write_message('Message received: {}' % msg)
         self.serialPort.writeSerial(msg)
 
     def on_close(self):
-        print('Closed - ', self)
+        print('Closed - {}' % self)
         self.connections.remove(self)
