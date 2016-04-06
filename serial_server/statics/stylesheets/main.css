@@ -1,3 +1,10 @@
+* {
+    font-family: 'Baskerville Old Face';
+    font-style: normal;
+    font-variant: normal;
+
+}
+
 body {
     background: #151515;
 }
@@ -9,6 +16,10 @@ h1 {
 h4 {
 	margin-left: .5em;
 	margin-bottom: .5em;
+}
+
+p {
+    font-size: 1em;
 }
 
 .main-content {

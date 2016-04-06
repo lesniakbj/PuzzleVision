@@ -21,7 +21,7 @@ import tornado.gen
 
 from tornado.options import define, options
 from controllers import home_controller, serial_controller
-from serial import serial_socket
+from serial_com import serial_socket, serial_com
 from config import strings, server, serial, routes
 
 
@@ -42,7 +42,10 @@ class SerialMonitorApplication(tornado.web.Application):
     controllers = []
     settings = []
 
+    serialPort = None
+
     def __init__(self):
+        self.initSerialPort()
         self.initControllers()
         self.initSettings()
 
@@ -53,7 +56,7 @@ class SerialMonitorApplication(tornado.web.Application):
         self.controllers = [
             (routes.ROOT, home_controller.HomeController),
             (routes.SERIAL_MONITOR, serial_controller.SerialComController),
-            (routes.SERIAL_SOCKET, serial_socket.SerialMonitorSocket),
+            (routes.SERIAL_SOCKET, serial_socket.SerialMonitorSocket, dict(serial=self.serialPort)),
             (
                 routes.STATICS_PATTERN,
                 tornado.web.StaticFileHandler,
@@ -72,11 +75,15 @@ class SerialMonitorApplication(tornado.web.Application):
                 templates_root[:-1]
             ),
             statics_path=os.path.join(
-                os.path.dirname(__file__),
+                     os.path.dirname(__file__),
                 statics_root[:-1]
             )
         )
 
+    def initSerialPort(self):
+        self.serialPort = serial_com.SerialCom()
+        self.serialPort.daemon = True
+        self.serialPort.start()
 
 def main():
     tornado.options.parse_command_line()
@@ -87,7 +94,10 @@ def main():
     print('Listening on port:', server_port)
 
     # Start the application on the main IO loop
-    tornado.ioloop.IOLoop.current().start()
+	# Add a callback that will be called periodically to check
+	# the serial port for data.
+    iol = tornado.ioloop.IOLoop.instance()
+    iol.start()
 
 
 if __name__ == "__main__":
